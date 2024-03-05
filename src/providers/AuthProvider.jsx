@@ -36,7 +36,7 @@ export default function AuthProvider({ children }) {
         const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/user/sign-out`, config);
 
         if (res.ok !== 200) {
-            return
+            return;
         }
         toast.success("Logged out successfully")
         setUser(null)
@@ -46,7 +46,7 @@ export default function AuthProvider({ children }) {
         try {
             const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/user/auth`, config);
             setUser(res.data);
-            return res.data
+            return res.data;
         } catch (error) {
             if (error.response.status === 401) {
                 navigate("/sign-in")
