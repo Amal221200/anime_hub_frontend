@@ -20,6 +20,7 @@ const Header = () => {
         })
     }, [user])
 
+    console.log(user);
     const handleSearch = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
