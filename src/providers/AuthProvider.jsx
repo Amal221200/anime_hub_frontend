@@ -11,7 +11,7 @@ export default function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
 
     const signIn = useCallback(async (user) => {
-        const res = await ApiFetcher.post(`/api/user/auth`, user);
+        const res = await ApiFetcher.post(`${import.meta.env.VITE_SERVER_URL}/api/user/auth`, user);
         if (res.status !== 200) {
             return;
         }
@@ -21,7 +21,7 @@ export default function AuthProvider({ children }) {
     }, []);
 
     const signUp = useCallback(async (user) => {
-        const res = await ApiFetcher.post(`/api/user/sign-up`, user);
+        const res = await ApiFetcher.post(`${import.meta.env.VITE_SERVER_URL}/api/user/sign-up`, user);
 
         if (res.status !== 201) {
             return;
@@ -32,7 +32,7 @@ export default function AuthProvider({ children }) {
     }, [setUser]);
 
     const signOut = useCallback(async () => {
-        const res = await ApiFetcher.get(`/api/user/sign-out`);
+        const res = await ApiFetcher.get(`${import.meta.env.VITE_SERVER_URL}/api/user/sign-out`);
 
         if (res.ok !== 200) {
             return
@@ -43,7 +43,7 @@ export default function AuthProvider({ children }) {
 
     const fetchSession = useCallback(async () => {
         try {
-            const res = await ApiFetcher.get(`/api/user/auth`);
+            const res = await ApiFetcher.get(`${import.meta.env.VITE_SERVER_URL}/api/user/auth`);
             setUser(res.data);
             return res.data
         } catch (error) {
