@@ -17,6 +17,7 @@ const SignUpPage = () => {
         if (password !== cpassword) {
             return alert("Password does not match");
         }
+        
         signUp({ username, email, password }).then(() => {
             navigate("/")
         })

@@ -13,9 +13,7 @@ export default function AnimeProvider({ children }) {
         if (id) {
             url.searchParams.set('anime', id);
         }
-
         const res = await ApiFetcher.get(url.pathname);
-
         return res.data;
     }, [])
 
@@ -24,7 +22,6 @@ export default function AnimeProvider({ children }) {
         if (title) {
             url.searchParams.set('title', title)
         }
-        console.log(url);
         const res = await ApiFetcher.get(url.pathname + url.search);
 
         return res.data;

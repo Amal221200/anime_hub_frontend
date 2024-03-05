@@ -9,7 +9,7 @@ const Header = () => {
     const headerRef = useRef();
     const scrollY = useRef(window.scrollY)
     const navigate = useNavigate();
-    // console.log(user);
+
     useEffect(() => {
         window.addEventListener('scroll', () => {
             if (scrollY.current < window.scrollY) {
@@ -19,7 +19,7 @@ const Header = () => {
             }
             scrollY.current = window.scrollY
         })
-    }, [])
+    }, [user])
     
     const handleSearch = (e) => {
         e.preventDefault();

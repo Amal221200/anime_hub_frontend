@@ -13,7 +13,7 @@ const SignInPage = () => {
         const password = formData.get("password");
 
         signIn({ username, password }).then(() => {
-            navigate(-1);
+            navigate("/");
         });
     }
 
