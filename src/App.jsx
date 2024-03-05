@@ -2,8 +2,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import { lazy, Suspense } from "react";
 import MainLayout from "./layout/MainLayout"
 import AuthLayout from "./layout/AuthLayout"
-import HomePage from "./pages/HomePage"
 
+const HomePage = lazy(() => import("./pages/HomePage"))
 const AnimePage = lazy(() => import("./pages/AnimePage"))
 const SearchPage = lazy(() => import("./pages/SearchPage"))
 const SignInPage = lazy(() => import("./pages/SignInPage"))
@@ -40,22 +40,20 @@ function App() {
           children: [
             {
               path: '/',
-              element: <HomePage />
+              element: (
+                <HomePage />
+              )
             },
             {
               path: '/search',
               element: (
-                <Suspense>
-                  <SearchPage />
-                </Suspense>
+                <SearchPage />
               )
             },
             {
               path: '/anime/:animeId',
               element: (
-                <Suspense>
-                  <AnimePage />
-                </Suspense>
+                <AnimePage />
               )
             }
           ]

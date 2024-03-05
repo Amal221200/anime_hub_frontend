@@ -9,7 +9,6 @@ const Header = () => {
     const headerRef = useRef();
     const scrollY = useRef(window.scrollY)
     const navigate = useNavigate();
-
     useEffect(() => {
         window.addEventListener('scroll', () => {
             if (scrollY.current < window.scrollY) {
@@ -20,28 +19,28 @@ const Header = () => {
             scrollY.current = window.scrollY
         })
     }, [user])
-    
+
     const handleSearch = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const searchText = formData.get('search')
-        
+
         if (searchText === '') {
             return navigate('/');
         }
-        
+
         navigate(`/search?title=${searchText}`)
     }
-    
+
     return (
         <header ref={headerRef} className="fixed top-0 left-0 right-0 text-white z-[100] header-transition bg-black/90">
             <div className="flex justify-between items-center px-3 py-2 max-w-[90vw] mx-auto">
-                <div className="w-[100px]">
+                <div className="sm:w-[100px] w-[70px]">
                     <Link to={"/"}>
                         <img src={logo} alt="logo" className="w-full" />
                     </Link>
                 </div>
-                <form onSubmit={handleSearch} className="w-[50vw] rounded-full overflow-hidden bg-zinc-800 flex items-center">
+                <form onSubmit={handleSearch} className="w-[50vw] hidden sm:flex rounded-full overflow-hidden bg-zinc-800 items-center">
                     <input type="search" name="search" id="search" className="w-[95%] px-3 py-2 rounded-full bg-transparent outline-none" placeholder="Search anime" />
                     <button type="submit">
                         <Search size={20} />
@@ -61,6 +60,12 @@ const Header = () => {
                     </div>
                 </div>
             </div>
+            <form onSubmit={handleSearch} className="w-[80vw] mx-auto mt-2 mb-2 flex sm:hidden rounded-full overflow-hidden bg-zinc-800 items-center">
+                <input type="search" name="search" id="search" className="w-[95%] px-3 py-2 rounded-full bg-transparent outline-none" placeholder="Search anime" />
+                <button type="submit">
+                    <Search size={20} />
+                </button>
+            </form>
         </header>
     );
 }
