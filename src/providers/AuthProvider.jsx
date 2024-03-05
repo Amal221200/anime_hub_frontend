@@ -1,7 +1,8 @@
 import { createContext, useCallback, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import ApiFetcher from "../lib/ApiFetcher.js";
+import axios from "axios";
+import config from "../lib/config.js";
 
 export const AuthContext = createContext();
 
@@ -11,7 +12,7 @@ export default function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
 
     const signIn = useCallback(async (user) => {
-        const res = await ApiFetcher.post(`${import.meta.env.VITE_SERVER_URL}/api/user/auth`, user);
+        const res = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/user/auth`, user, config);
         if (res.status !== 200) {
             return;
         }
@@ -21,7 +22,7 @@ export default function AuthProvider({ children }) {
     }, []);
 
     const signUp = useCallback(async (user) => {
-        const res = await ApiFetcher.post(`${import.meta.env.VITE_SERVER_URL}/api/user/sign-up`, user);
+        const res = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/user/sign-up`, user, config);
 
         if (res.status !== 201) {
             return;
@@ -32,7 +33,7 @@ export default function AuthProvider({ children }) {
     }, [setUser]);
 
     const signOut = useCallback(async () => {
-        const res = await ApiFetcher.get(`${import.meta.env.VITE_SERVER_URL}/api/user/sign-out`);
+        const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/user/sign-out`, config);
 
         if (res.ok !== 200) {
             return
@@ -43,7 +44,7 @@ export default function AuthProvider({ children }) {
 
     const fetchSession = useCallback(async () => {
         try {
-            const res = await ApiFetcher.get(`${import.meta.env.VITE_SERVER_URL}/api/user/auth`);
+            const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/user/auth`, config);
             setUser(res.data);
             return res.data
         } catch (error) {
