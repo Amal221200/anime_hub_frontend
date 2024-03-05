@@ -62,7 +62,7 @@ function App() {
         }
       ]
     }
-  ], { basename: import.meta.env?.VITE_BASE_URL || "/" });
+  ]);
 
   return (
     <RouterProvider router={router} />
