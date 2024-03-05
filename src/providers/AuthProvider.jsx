@@ -1,7 +1,7 @@
 import { createContext, useCallback, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import ApiFetcher from "../../../admin-panel/src/lib/ApiFetcher";
+import ApiFetcher from "../lib/ApiFetcher.js";
 
 export const AuthContext = createContext();
 
@@ -15,7 +15,7 @@ export default function AuthProvider({ children }) {
         if (res.status !== 200) {
             return;
         }
-
+        
         toast.success("Signed in successfully")
         setUser(res.data)
     }, []);
