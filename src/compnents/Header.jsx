@@ -10,6 +10,9 @@ const Header = () => {
     const scrollY = useRef(window.scrollY)
     const navigate = useNavigate();
     useEffect(() => {
+        if(!headerRef.current){
+            return
+        }
         window.addEventListener('scroll', () => {
             if (scrollY.current < window.scrollY) {
                 headerRef.current.classList.replace('top-0', 'top-[-100%]')

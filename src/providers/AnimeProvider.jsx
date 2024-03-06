@@ -35,10 +35,13 @@ export default function AnimeProvider({ children }) {
     }, [])
 
     const addReview = useCallback(async (review) => {
-        const res = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/review`, { user: review.user, content: review.content, anime: review.anime }, config);
-
-        if (res.status === 401) {
-            return navigate("/login");
+        try {
+            const res = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/review`, { user: review.user, content: review.content, anime: review.anime }, config);
+            return res.data;
+        } catch (error) {
+            if (error.response.status === 401) {
+                return navigate("/login");
+            }
         }
 
     }, [navigate])

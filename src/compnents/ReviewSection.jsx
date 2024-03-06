@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useContext } from "react";
+import { useContext, useEffect, useState, Suspense } from "react";
 import SectionLayout from "../layout/SectionLayout";
 import { AuthContext } from "../providers/AuthProvider";
 import { AnimeContext } from "../providers/AnimeProvider";
@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const Review = ({ review }) => {
 
     return (
-        <article key={review._id} className="flex items-center gap-3">
+        <article className="flex items-center gap-3">
             <div>
                 <p className="leading-7 text-center text-white rounded-full w-7 h-7 bg-slate-600">{review?.user?.username[0].toUpperCase()}</p>
             </div>
@@ -19,24 +19,35 @@ const Review = ({ review }) => {
     )
 }
 
-const ReviewSection = ({ reviews }) => {
+const ReviewSection = ({ animeId }) => {
     const { user } = useContext(AuthContext);
-    const { addReview } = useContext(AnimeContext);
+    const [reviews, setReviews] = useState(null);
+    const { addReview, fetchReviews } = useContext(AnimeContext);
     const navigate = useNavigate();
-    
+
     const handleSubmit = (e) => {
         if (!user) {
             return navigate("/sign-in")
         }
-        
         e.preventDefault();
         const formData = new FormData(e.target);
-        addReview({ content: formData.get("review"), user: user._id, anime: reviews.anime });
+        addReview({ content: formData.get("review"), anime: animeId }).then((res) => {
+            setReviews([...reviews, res]);
+            e.target.reset();
+        });
     }
+
+    useEffect(() => {
+        (async () => {
+            const reviewsData = await fetchReviews(animeId);
+            setReviews(reviewsData);
+        })()
+    }, [animeId, fetchReviews])
 
     if (!reviews) {
         return null;
     }
+
     return (
         <section className="my-5">
             <SectionLayout>
@@ -48,7 +59,9 @@ const ReviewSection = ({ reviews }) => {
                 <div className="mt-3 space-y-3">
                     {
                         reviews?.map((review) => (
-                            <Review key={review._id} review={review} />
+                            <Suspense key={review._id}>
+                                <Review review={review} />
+                            </Suspense>
                         ))
                     }
                 </div>
