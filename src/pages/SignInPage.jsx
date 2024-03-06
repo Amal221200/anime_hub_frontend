@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom"
+import { toast } from "react-hot-toast";
 import { AuthContext } from "../providers/AuthProvider";
 
 const SignInPage = () => {
@@ -13,6 +14,7 @@ const SignInPage = () => {
         const password = formData.get("password");
 
         signIn({ username, password }).then(() => {
+            toast.success("Signed In");
             navigate("/");
         });
     }

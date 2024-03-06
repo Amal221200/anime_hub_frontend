@@ -1,18 +1,21 @@
 import { User, LogOut, LogIn, Search } from "lucide-react";
-import logo from "../img/logo.jpg";
 import { useContext, useEffect, useRef } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import logo from "../img/logo.jpg";
 
 const Header = () => {
     const { user, signOut } = useContext(AuthContext);
-    const headerRef = useRef();
+    const headerRef = useRef(null);
     const scrollY = useRef(window.scrollY)
     const navigate = useNavigate();
+    
     useEffect(() => {
-        if(!headerRef.current){
+        if (!headerRef.current) {
             return
         }
+        
         window.addEventListener('scroll', () => {
             if (scrollY.current < window.scrollY) {
                 headerRef.current.classList.replace('top-0', 'top-[-100%]')
@@ -22,7 +25,6 @@ const Header = () => {
             scrollY.current = window.scrollY
         })
     }, [user])
-
     const handleSearch = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
@@ -33,6 +35,13 @@ const Header = () => {
         }
 
         navigate(`/search?title=${searchText}`)
+    }
+
+    const handleLogOut = () => {
+        signOut().then(() => {
+            toast.success("Logged Out Successfully");
+        })
+
     }
 
     return (
@@ -55,7 +64,7 @@ const Header = () => {
                         {user ? (
                             <span className="flex items-center justify-center gap-3">
                                 <span className="text-center text-black bg-white rounded-full h-7 w-7">{user?.username?.at(0)?.toUpperCase()}</span>
-                                <LogOut className="cursor-pointer" onClick={signOut} />
+                                <LogOut className="cursor-pointer" onClick={handleLogOut} />
                             </span>
                         ) :
                             <Link to="/sign-in" className="flex gap-3">Login <LogIn /></Link>

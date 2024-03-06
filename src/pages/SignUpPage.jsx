@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom"
+import { toast } from "react-hot-toast";
 import { AuthContext } from "../providers/AuthProvider";
 
 const SignUpPage = () => {
@@ -17,12 +18,13 @@ const SignUpPage = () => {
         if (password !== cpassword) {
             return alert("Password does not match");
         }
-        
+
         signUp({ username, email, password }).then(() => {
+            toast.success("Created your account");
             navigate("/")
         })
     }
-    
+
     return (
 
         <section className="grid w-full h-full place-content-center">

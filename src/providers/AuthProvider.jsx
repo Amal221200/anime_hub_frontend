@@ -17,7 +17,6 @@ export default function AuthProvider({ children }) {
             return;
         }
         
-        toast.success("Signed in successfully")
         setUser(res.data)
     }, []);
 
@@ -28,17 +27,13 @@ export default function AuthProvider({ children }) {
             return;
         }
 
-        toast.success("Created your account")
+        
         setUser(res.data);
     }, [setUser]);
 
     const signOut = useCallback(async () => {
-        const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/user/sign-out`, config);
+        await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/user/sign-out`, config);
 
-        if (res.ok !== 200) {
-            return;
-        }
-        toast.success("Logged out successfully")
         setUser(null)
     }, []);
 
