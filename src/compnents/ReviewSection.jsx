@@ -31,7 +31,7 @@ const ReviewSection = ({ animeId }) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         addReview({ content: formData.get("review"), anime: animeId }).then((res) => {
-            setReviews([...reviews, res]);
+            setReviews((current)=>[...current, res]);
             e.target.reset();
         });
     }
