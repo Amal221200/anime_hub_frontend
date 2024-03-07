@@ -1,20 +1,19 @@
-import { useContext, useEffect, useState } from "react";
-import { AnimeContext } from "../providers/AnimeProvider";
+import {  useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import AnimeIntro from "../compnents/AnimeIntro";
 import ReviewSection from "../compnents/ReviewSection";
+import { fetchAnime } from "../lib/animeControllers";
 
-const SongPage = () => {
+const AnimePage = () => {
     const [anime, setAnime] = useState(null);
     const { animeId } = useParams();
-    const { fetchAnime } = useContext(AnimeContext);
 
     useEffect(() => {
         (async () => {
             const animeData = await fetchAnime(animeId);
             setAnime(animeData);
         })()
-    }, [animeId, fetchAnime]);
+    }, [animeId]);
 
     if (!anime) return
     return (
@@ -25,4 +24,4 @@ const SongPage = () => {
     );
 }
 
-export default SongPage;
+export default AnimePage;

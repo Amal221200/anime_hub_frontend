@@ -1,12 +1,13 @@
-import { useContext } from "react";
+import { useCallback, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom"
 import { toast } from "react-hot-toast";
 import { AuthContext } from "../providers/AuthProvider";
+import { signUp } from "../lib/authControllers";
 
 const SignUpPage = () => {
     const navigate = useNavigate();
-    const { signUp } = useContext(AuthContext);
-    const handleSubmit = (e) => {
+    const { fetchSession } = useContext(AuthContext);
+    const handleSubmit = useCallback(async (e) => {
         e.preventDefault();
 
         const formData = new FormData(e.target);
@@ -19,11 +20,15 @@ const SignUpPage = () => {
             return alert("Password does not match");
         }
 
-        signUp({ username, email, password }).then(() => {
-            toast.success("Created your account");
-            navigate("/")
-        })
-    }
+        const res = await signUp({ username, email, password });
+        if(!res){
+            toast.error("Something went wrong!");
+            return;
+        }
+        await fetchSession();
+        toast.success("Created your account");
+        navigate("/");
+    }, [fetchSession, navigate])
 
     return (
 

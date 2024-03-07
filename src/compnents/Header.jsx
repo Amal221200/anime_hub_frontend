@@ -1,21 +1,22 @@
 import { User, LogOut, LogIn, Search } from "lucide-react";
-import { useContext, useEffect, useRef } from "react";
+import { useCallback, useContext, useEffect, useRef } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import logo from "../img/logo.jpg";
+import { signOut } from "../lib/authControllers";
 
 const Header = () => {
-    const { user, signOut } = useContext(AuthContext);
+    const { user, fetchSession } = useContext(AuthContext);
     const headerRef = useRef(null);
     const scrollY = useRef(window.scrollY)
     const navigate = useNavigate();
-    
+
     useEffect(() => {
         if (!headerRef.current) {
             return
         }
-        
+
         window.addEventListener('scroll', () => {
             if (scrollY.current < window.scrollY) {
                 headerRef.current.classList.replace('top-0', 'top-[-100%]')
@@ -37,12 +38,17 @@ const Header = () => {
         navigate(`/search?title=${searchText}`)
     }
 
-    const handleLogOut = () => {
-        signOut().then(() => {
-            toast.success("Logged Out Successfully");
-        })
+    const handleLogOut = useCallback(async () => {
+        const res = await signOut();
+        
+        if(!res){
+            toast.success("Something went wrong");
+            return
+        }
 
-    }
+        await fetchSession();
+        toast.success("Logged Out Successfully");
+    }, [fetchSession])
 
     return (
         <header ref={headerRef} className="fixed top-0 left-0 right-0 text-white z-[100] header-transition bg-black/90">

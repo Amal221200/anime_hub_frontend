@@ -2,8 +2,8 @@
 import { useContext, useEffect, useState, Suspense } from "react";
 import SectionLayout from "../layout/SectionLayout";
 import { AuthContext } from "../providers/AuthProvider";
-import { AnimeContext } from "../providers/AnimeProvider";
 import { useNavigate } from "react-router-dom";
+import { addReview, fetchReviews } from "../lib/animeControllers";
 
 const Review = ({ review }) => {
 
@@ -22,7 +22,6 @@ const Review = ({ review }) => {
 const ReviewSection = ({ animeId }) => {
     const { user } = useContext(AuthContext);
     const [reviews, setReviews] = useState(null);
-    const { addReview, fetchReviews } = useContext(AnimeContext);
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
@@ -42,7 +41,7 @@ const ReviewSection = ({ animeId }) => {
             const reviewsData = await fetchReviews(animeId);
             setReviews(reviewsData);
         })()
-    }, [animeId, fetchReviews])
+    }, [animeId])
 
     if (!reviews) {
         return null;

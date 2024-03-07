@@ -3,34 +3,55 @@ import { toast } from "react-hot-toast";
 import config from "./config";
 
 export const fetchAnimes = async (title) => {
-    const url = new URL(`${import.meta.env.VITE_SERVER_URL}/api/anime`);
-    if (title) {
-        url.searchParams.set('title', title)
-    }
+    try {
+        const url = new URL(`${import.meta.env.VITE_SERVER_URL}/api/anime`);
+        if (title) {
+            url.searchParams.set('title', title)
+        }
 
-    const res = await axios.get(url.toString(), config);
-    return res.data;
+        const res = await axios.get(url.toString(), config);
+        return res.data;
+
+    } catch (error) {
+        console.log("fethAnime error, ");
+        return null;
+    }
 }
 
 export const fetchAnime = async (id) => {
-    const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/anime/${id}`, config);
-    return res.data;
+    try {
+        const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/anime/${id}`, config);
+        return res.data;
+    } catch (error) {
+        console.log("Fetch Anime error");
+        return null;
+    }
 }
 
 export const fetchReviews = async (id) => {
-    const url = new URL(`${import.meta.env.VITE_SERVER_URL}/api/review`);
-    if (id) {
-        url.searchParams.set('anime', id);
+
+    try {
+        const url = new URL(`${import.meta.env.VITE_SERVER_URL}/api/review`);
+        if (id) {
+            url.searchParams.set('anime', id);
+        }
+
+        const res = await axios.get(url.toString(), config);
+        return res.data;
+    } catch (error) {
+        console.log("Fetch review error");
+        return null;
     }
-    
-    const res = await axios.get(url.toString(), config);
-    return res.data;
 }
 
 export const addReview = async (review) => {
-    const res = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/review`, { user: review.user, content: review.content, anime: review.anime }, config);
-
-    toast.success("Review is added");
-    return res.data;
+    try {
+        const res = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/review`, { user: review.user, content: review.content, anime: review.anime }, config);
+        toast.success("Review is added");
+        return res.data;
+    } catch (error) {
+        console.log("add review error");
+        return null;
+    }
 
 }

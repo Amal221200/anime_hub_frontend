@@ -11,32 +11,7 @@ export default function AuthProvider({ children }) {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
 
-    const signIn = useCallback(async (user) => {
-        const res = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/user/auth`, user, config);
-        if (res.status !== 200) {
-            return;
-        }
-        
-        setUser(res.data)
-    }, []);
-
-    const signUp = useCallback(async (user) => {
-        const res = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/user/sign-up`, user, config);
-
-        if (res.status !== 201) {
-            return;
-        }
-
-        
-        setUser(res.data);
-    }, [setUser]);
-
-    const signOut = useCallback(async () => {
-        await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/user/sign-out`, config);
-
-        setUser(null)
-    }, []);
-
+    
     const fetchSession = useCallback(async () => {
         try {
             const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/user/auth`, config);
@@ -56,7 +31,7 @@ export default function AuthProvider({ children }) {
     }, [fetchSession])
 
     return (
-        <AuthContext.Provider value={{ user, signUp, signIn, signOut, fetchSession, }}>
+        <AuthContext.Provider value={{ user, fetchSession, }}>
             {children}
         </AuthContext.Provider>
     )

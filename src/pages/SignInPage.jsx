@@ -1,23 +1,28 @@
-import { useContext } from "react";
+import { useCallback, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom"
 import { toast } from "react-hot-toast";
 import { AuthContext } from "../providers/AuthProvider";
+import { signIn } from "../lib/authControllers";
 
 const SignInPage = () => {
     const navigate = useNavigate();
-    const { signIn } = useContext(AuthContext);
+    const { fetchSession } = useContext(AuthContext);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = useCallback(async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const username = formData.get("username");
         const password = formData.get("password");
 
-        signIn({ username, password }).then(() => {
-            toast.success("Signed In");
-            navigate("/");
-        });
-    }
+        const res = await signIn({ username, password });
+        if (!res) {
+            toast.error("Something went wrong");
+            return;
+        }
+        await fetchSession()
+        toast.success("Signed In");
+        navigate("/");
+    }, [fetchSession, navigate])
 
     return (
 
