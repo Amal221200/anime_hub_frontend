@@ -8,11 +8,11 @@ const AnimeIntro = ({ anime }) => {
         <main>
             <SectionLayout>
                 <div className="flex flex-col gap-4 md:justify-between md:items-stretch md:flex-row">
-                    <div className="flex-grow-[1] md:flex-grow-[2] h-[250px] md:basis-3 sm:h-[350px] md:w-[400px] rounded-md overflow-hidden">
+                    <div className="flex-grow-[1] md:flex-grow-[2] h-[250px] md:basis-2 sm:h-[350px] md:w-[350px] md:h-[400px] rounded-md overflow-hidden">
                         <img src={anime.imageLink} alt={anime.title} className="object-cover object-center w-full h-full" />
                     </div>
                     <div className="flex-grow-[1] flex flex-col justify-between md:basis-2 w-full">
-                        <h1 className="mb-3 text-5xl font-bold">{anime.title}</h1>
+                        <h1 className="mb-3 text-3xl font-bold">{anime.title}</h1>
                         <ul className="py-3 space-y-2">
                             <li><strong>Studio:</strong> {anime.studio}</li>
                             <li><strong>Artist:</strong> {anime.artist}</li>
