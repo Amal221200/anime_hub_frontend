@@ -79,9 +79,9 @@ const Header = () => {
                 </div>
             </div>
             <form onSubmit={handleSearch} className="w-[80vw] mx-auto mt-2 mb-2 flex sm:hidden rounded-full overflow-hidden bg-zinc-800 items-center">
-                <input type="search" name="search" id="search" className="w-[95%] px-3 py-2 rounded-full bg-transparent outline-none" placeholder="Search anime" />
+                <input type="text" name="search" id="search" className="w-[95%] px-3 py-2 rounded-full bg-transparent outline-none" placeholder="Search anime" />
                 <button type="submit">
-                    <Search size={20} />
+                    <Search size={20} className="mr-3" />
                 </button>
             </form>
         </header>
