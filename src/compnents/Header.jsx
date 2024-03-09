@@ -73,7 +73,7 @@ const Header = () => {
                                 <LogOut className="cursor-pointer" onClick={handleLogOut} />
                             </span>
                         ) :
-                            <Link to="/sign-in" className="flex gap-3">Login <LogIn /></Link>
+                            <Link to="/auth/sign-in" className="flex gap-3">Login <LogIn /></Link>
                         }
                     </div>
                 </div>

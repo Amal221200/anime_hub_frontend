@@ -1,11 +1,10 @@
 import { Outlet } from "react-router-dom";
-import AuthProvider from "../providers/AuthProvider";
 
 
 export default function AuthLayout() {
     return (
-        <AuthProvider>
+        <section className="grid w-full min-h-[100dvh] place-content-center">
             <Outlet />
-        </AuthProvider>
+        </section>
     )
 }
