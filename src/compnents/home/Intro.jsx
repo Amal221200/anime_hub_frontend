@@ -1,4 +1,4 @@
-import SectionLayout from "../layout/SectionLayout";
+import SectionLayout from "../../layout/SectionLayout";
 
 const Intro = () => {
     return (

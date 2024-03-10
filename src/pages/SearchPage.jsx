@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
-import { useContext, useEffect, useState, lazy, Suspense } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { useSearchParams } from "react-router-dom";
-import AnimeSection from "../compnents/AnimeSection";
+import AnimeSection from "../compnents/home/AnimeSection";
 import { fetchAnimes } from "../lib/animeControllers";
 
-const AnimeCard = lazy(() => import("../compnents/AnimeCard"));
+const AnimeCard = lazy(() => import("../compnents/home/AnimeCard"));
 
 const SearchPage = () => {
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams, ] = useSearchParams();
 
     const [animes, setAnimes] = useState(null);
     const title = searchParams.get("title")

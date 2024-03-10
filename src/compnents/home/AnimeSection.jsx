@@ -1,4 +1,4 @@
-import SectionLayout from "../layout/SectionLayout";
+import SectionLayout from "../../layout/SectionLayout";
 
 
 // eslint-disable-next-line react/prop-types

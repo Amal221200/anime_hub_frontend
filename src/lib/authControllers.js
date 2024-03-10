@@ -3,11 +3,11 @@ import config from './config';
 
 export const signIn = async (user) => {
     try {
-       const res = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/user/auth`, user, config);
-       return res.status;
+        const res = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/user/auth`, user, config);
+        return res.status;
     } catch (error) {
         if (error.response.status !== 200) {
-            console.log("Signin error");
+            console.log("Signin error", error);
             return;
         }
 
@@ -20,7 +20,7 @@ export const signUp = async (user) => {
         return res.status;
     } catch (error) {
         if (error.response.status !== 201) {
-            console.log('Sign Up Error');
+            console.log('Sign Up Error', error);
             return;
         }
     }
@@ -28,12 +28,12 @@ export const signUp = async (user) => {
 
 export const signOut = async () => {
     try {
-        
+
         const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/user/sign-out`, config);
         return res.status;
     } catch (error) {
         if (error.response.status !== 200) {
-            console.log('Sign Out Error');
+            console.log('Sign Out Error', error);
             return;
         }
     }

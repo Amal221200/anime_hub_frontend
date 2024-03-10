@@ -1,7 +1,7 @@
 import {  useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
-import AnimeIntro from "../compnents/AnimeIntro";
-import ReviewSection from "../compnents/ReviewSection";
+import AnimeIntro from "../compnents/anime/AnimeIntro";
+import ReviewSection from "../compnents/anime/ReviewSection";
 import { fetchAnime } from "../lib/animeControllers";
 
 const AnimePage = () => {

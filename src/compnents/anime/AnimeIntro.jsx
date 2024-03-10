@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
-import SectionLayout from "../layout/SectionLayout";
+import SectionLayout from "../../layout/SectionLayout";
 import { Play } from "lucide-react";
 
 const AnimeIntro = ({ anime }) => {

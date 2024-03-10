@@ -13,7 +13,7 @@ export const fetchAnimes = async (title) => {
         return res.data;
 
     } catch (error) {
-        console.log("fethAnime error, ");
+        console.log("fethAnimes error", error);
         return null;
     }
 }
@@ -23,7 +23,7 @@ export const fetchAnime = async (id) => {
         const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/anime/${id}`, config);
         return res.data;
     } catch (error) {
-        console.log("Fetch Anime error");
+        console.log("Fetch Anime error", error);
         return null;
     }
 }
@@ -39,7 +39,7 @@ export const fetchReviews = async (id) => {
         const res = await axios.get(url.toString(), config);
         return res.data;
     } catch (error) {
-        console.log("Fetch review error");
+        console.log("Fetch review error", error);
         return null;
     }
 }
@@ -50,7 +50,7 @@ export const addReview = async (review) => {
         toast.success("Review is added");
         return res.data;
     } catch (error) {
-        console.log("add review error");
+        console.log("add review error", error);
         return null;
     }
 
